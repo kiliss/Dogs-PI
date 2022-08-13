@@ -45,9 +45,12 @@ router.post("/dogs", async (req, res) => {
             height,
             weight,
             life_span,
-            temperament,
+            image,
+            createdInDb
         });
-        res.status(201).send(newDog);
+        let temperDB = await Temper.findAll({ where: { name: temperament } });
+        newDog.addTemper(temperDB);
+        res.send("Personaje creado con exitos");
     }
 });
 
