@@ -9,3 +9,13 @@ export function getDogs(){
         })
     }
 }
+
+export function getTemperament(){
+    return async function(dispatch){
+        const response = await axios.get("http://localhost:3001/temperaments")
+        return dispatch({
+            type: "GET_TEMPERAMENT",
+            payload: response.data
+        })
+    }
+}
