@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './App'; 
+import reportWebVitals from './reportWebVitals'; 
+import {Provider} from "react-redux"; // Provider es un componente que nos permite acceder a la store
+import {store} from "./store"; // store es la store que creamos en el archivo store/index.js
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

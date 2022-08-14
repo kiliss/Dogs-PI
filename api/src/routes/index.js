@@ -34,7 +34,7 @@ router.get("/dogs/:id", async (req, res) => {
 });
 
 router.post("/dogs", async (req, res) => {
-    const { name, height, weight, life_span, temperament } = req.body;
+    const { name, height, weight, life_span, temperament, image } = req.body;
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.name === name);
     if(dogFind.length > 0){
@@ -46,7 +46,6 @@ router.post("/dogs", async (req, res) => {
             weight,
             life_span,
             image,
-            createdInDb
         });
         let temperDB = await Temper.findAll({ where: { name: temperament } });
         newDog.addTemper(temperDB);
