@@ -34,7 +34,7 @@ router.get("/dogs/:id", async (req, res) => {
 });
 
 router.post("/dogs", async (req, res) => {
-    const { name, height, weight, life_span, temperament, image } = req.body;
+    const { name, heightMax, weightMin, life_span, temperament, image, heightMin, weightMax } = req.body;
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.name === name);
     if(dogFind.length > 0){
@@ -42,14 +42,16 @@ router.post("/dogs", async (req, res) => {
     } else {
         let newDog = await Dog.create({
             name,
-            height,
-            weight,
+            heightMin,
+            heightMax,
+            weightMin,
+            weightMax,
             life_span,
             image,
         });
         let temperDB = await Temper.findAll({ where: { name: temperament } });
         newDog.addTemper(temperDB);
-        res.send("Personaje creado con exitos");
+        res.send("Perro creado con exito");
     }
 });
 

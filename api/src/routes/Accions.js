@@ -5,13 +5,26 @@ const { Dog, Temper } = require('../db');
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`);
     const apiInfo = await apiUrl.data.map(dog => {
+        let weightMin = dog.weight.metric.split(" - ")[0];
+        let weightMax = dog.weight.metric.split(" - ")[1];
+        let heightMin = dog.height.metric.split(" - ")[0];
+        let heightMax = dog.height.metric.split(" - ")[1];
+        if(dog.name === "Smooth Fox Terrier"){
+            weightMin = "6";
+        }
+        if(dog.name === "Olde English Bulldogge"){
+            weightMin = "20";
+            weightMax = "30";
+        }
         return {
             id: dog.id,
             name: dog.name,
             image: dog.image.url,
             temperament: dog.temperament,
-            height: dog.height.metric,
-            weight: dog.weight.metric,
+            weightMin: weightMin,
+            weightMax: weightMax,
+            heightMin: heightMin,
+            heightMax: heightMax,
             life_span: dog.life_span,
         }
     });

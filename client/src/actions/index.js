@@ -19,3 +19,31 @@ export function getTemperament(){
         })
     }
 }
+
+
+export function filterDogByTemperament(payload){
+    return {
+        type: "FILTER_DOG_BY_TEMPERAMENT",
+        payload
+    }
+}
+
+export function filterDogByCreated(payload){
+    return {
+        type: "FILTER_DOG_BY_CREATED",
+        payload
+    }
+}
+
+export function filterDogByName(payload){
+    return {
+        type: "FILTER_DOG_BY_NAME",
+        payload
+    }
+}
+export function handleSortWeight(payload){
+    return {
+        type: "FILTER_DOG_BY_WEIGHT",
+        payload
+    }
+}
