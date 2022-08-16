@@ -4,7 +4,7 @@ const { Dog, Temper } = require('../db');
 
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`);
-    const apiInfo = await apiUrl.data.map(dog => {
+    const apiInfo = apiUrl.data.map(dog => {
         let weightMin = dog.weight.metric.split(" - ")[0];
         let weightMax = dog.weight.metric.split(" - ")[1];
         let heightMin = dog.height.metric.split(" - ")[0];

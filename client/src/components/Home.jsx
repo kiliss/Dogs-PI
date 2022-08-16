@@ -54,7 +54,7 @@ export default function Home() {
 
     return (
         <div>
-            <Link to="/dogCreate">Crear Personaje</Link>
+            <Link to="/dogCreate">Crear Perro</Link>
             <h1>Dogs</h1>
             <button onClick = {e => {handleClick(e)}}>
                 Volver a cargar personajes

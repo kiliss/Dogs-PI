@@ -53,12 +53,12 @@ function rootReducer(state = initialState, action){
         case "FILTER_DOG_BY_WEIGHT":
             const filterDogsByWeight =  state.allDogs;
             let filterWeight = action.payload === "weightMin" ? filterDogsByWeight.sort((a, b) => {
-                if(a.weightMin > b.weightMin) return 1
-                if(a.weightMin < b.weightMin) return -1
+                if(parseInt(a.weightMin) > parseInt(b.weightMin)) return 1
+                if(parseInt(a.weightMin) < parseInt(b.weightMin)) return -1
                 return 0
             }) : filterDogsByWeight.sort((a, b) => {
-                if(a.weightMin < b.weightMin) return 1
-                if(a.weightMin > b.weightMin) return -1
+                if(parseInt(a.weightMin) < parseInt(b.weightMin)) return 1
+                if(parseInt(a.weightMin) > parseInt(b.weightMin)) return -1
                 return 0
             })
             return {
