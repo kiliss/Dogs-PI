@@ -5,6 +5,7 @@ import {getDogs, getTemperament, filterDogByTemperament, filterDogByCreated, fil
 import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
+import SearchBar from './SearchBar';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -54,14 +55,15 @@ export default function Home() {
 
     return (
         <div>
-            <Link to="/dogCreate">Crear Perro</Link>
+            <Link to="/Create">Crear Perro</Link>
             <h1>Dogs</h1>
+            
             <button onClick = {e => {handleClick(e)}}>
                 Volver a cargar personajes
             </button>
             <div>
                 <select defaultValue="ord" onChange={e => handleName(e)}>
-                    <option value="ord" >Ordenar</option>
+                    <option value="ord" hidden>Ordenar</option>
                     <option value = "asc">Ascendente</option>
                     <option value = "desc">Descendente</option>
                 </select>
@@ -80,15 +82,17 @@ export default function Home() {
                     }
                 </select>
                 <select defaultValue="weight" onChange={e => handleSortWeightt(e)}>
-                    <option value="weight">Filter by weight</option>
+                    <option value="weight" hidden>Filter by weight</option>
                     <option value= "weightMin">weight min</option>
                     <option value= "weightMax">weight max</option>
                 </select>
+                <p> {order} </p>
                 <Paginado
                     dogsPerPage={dogPerPage}
                     allDogs={allDogs.length}
                     paginate={paginate}
                 />
+                <SearchBar/>
                 {
                     currentDogs?.map(dog => {
                         return (

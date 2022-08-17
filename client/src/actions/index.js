@@ -20,6 +20,25 @@ export function getTemperament(){
     }
 }
 
+export function getName(name){
+    return async function(dispatch){
+        try {
+            const response = await axios.get(`http://localhost:3001/dogs?name=${name}`)
+            return dispatch({
+                type: "GET_NAME",
+                payload: response.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+export function PostDog(payload){
+    return async function(){
+            const response = await axios.post("http://localhost:3001/dogs", payload)
+            return response
+    }
+}
 
 export function filterDogByTemperament(payload){
     return {

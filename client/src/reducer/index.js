@@ -65,6 +65,16 @@ function rootReducer(state = initialState, action){
                 ...state,
                 Dogs: filterWeight
         }
+        case "GET_NAME":
+            return {
+                ...state,
+                Dogs: action.payload
+        }
+        case "POST_DOG":
+            return {
+                ...state,
+            }
+
         default:
             return state;
     }
