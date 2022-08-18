@@ -5,6 +5,10 @@ const { Dog, Temper } = require('../db');
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`);
     const apiInfo = apiUrl.data.map(dog => {
+        let temperamentArray = [];
+        if (dog.temperament) {//pregunto que exista el temperamento y lo devuelvo en un arreglo
+            temperamentArray = dog.temperament.split(", ");
+        }
         let weightMin = dog.weight.metric.split(" - ")[0];
         let weightMax = dog.weight.metric.split(" - ")[1];
         let heightMin = dog.height.metric.split(" - ")[0];
@@ -20,7 +24,7 @@ const getApiInfo = async () => {
             id: dog.id,
             name: dog.name,
             image: dog.image.url,
-            temperament: dog.temperament,
+            Tempers: temperamentArray,
             weightMin: weightMin,
             weightMax: weightMax,
             heightMin: heightMin,
@@ -33,23 +37,24 @@ const getApiInfo = async () => {
 
 // const getDBInfo = async () => {
 //     return await Dog.findAll({
-//         includes:{
+//         include: [{
 //             model: Temper,
-//             attributes: ['name'],
-//             through: { attributes: [] }
-//         },
+//             attributes: ['name'], //atributos que quiero traer del modelo Temperament, el id lo trae automatico
+//             through: { attributes: [] } //traer mediante los atributos del modelo
+//         }],
 //     });
 // }
 const getDBInfo = async () => {
     return await Dog.findAll({
-        include: [{
+        include: {
             model: Temper,
-            attributes: ['name'],
-            through: { attributes: [] }
-        }],
-    });
-}
-
+            attributes: ['name'], //atributos que quiero traer del modelo Temperament, el id lo trae automatico
+            through: {
+                attributes: [],//traer mediante los atributos del modelo
+            },
+        }
+    })
+};
 
 const getAllCharacters = async () => {
     const apiInfo = await getApiInfo();

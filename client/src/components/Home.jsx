@@ -96,15 +96,17 @@ export default function Home() {
                 {
                     currentDogs?.map(dog => {
                         return (
+                            <div key={dog.id}>
+                                {
                         <Card key={dog.id}
                         name= {dog.name}
                         image= {dog.image}
-                        temeprament= {dog.temperament}
+                        Tempers= {dog.Tempers[0].name ? dog.Tempers.map(el => el.name) : dog.Tempers}
                         weightMin= {dog.weightMin}
                         weightMax= {dog.weightMax} />
-                        )
-                    }
-                    )
+                                }
+                            </div>
+                            )})
                 }
             </div>
         </div>

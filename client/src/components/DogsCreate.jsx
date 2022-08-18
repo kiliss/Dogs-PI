@@ -2,8 +2,29 @@ import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import { PostDog, getTemperament } from "../actions";
-import { Card } from "./Card";
 
+function validate(dog){
+    const errors = {};
+    if(!dog.name){
+        errors.name = "Name is required";
+    }
+    if(!dog.image){
+        errors.image = "Image is required";
+    }
+    if(!dog.weightMax || !dog.weightMin){
+        errors.weightMax = "Weight is required";
+    }
+    if(dog.Tempers.length === 7){
+        errors.Tempers = "Tempers is full";
+    }
+    if(!dog.heightMax || !dog.heightMin){
+        errors.heightMax = "Height is required";
+    }
+    if(!dog.Tempers.length){
+        errors.Tempers = "Tempers is required";
+    }
+    return errors;
+}
 
 export default function DogsCreate() {
     const dispatch = useDispatch();
@@ -18,8 +39,9 @@ export default function DogsCreate() {
         life_spanMax: "",
         life_spanMin: "",
         image: "",
-        temperament:[],
+        Tempers:[],
     });
+    const [errors, setErrors] = useState({});
     useEffect(() => {
         dispatch(getTemperament());
     } , [dispatch]);
@@ -29,18 +51,29 @@ export default function DogsCreate() {
            ...dog,
            [e.target.name]: e.target.value
        })
+       setErrors(validate({
+                ...dog,
+                [e.target.name]: e.target.value
+       }))
    }
    function handleSelect(e) {
        const temperament = e.target.value;
        setDog({
            ...dog,
-           temperament: [...dog.temperament, temperament]
+           Tempers: [...dog.Tempers, temperament]
         })
     }
+    console.log(errors)
     function handleSubmit (e) {
         e.preventDefault();
         dispatch(PostDog(dog));
         history.push("/home");
+    }
+    function handleDelete(el) {
+        setDog({
+            ...dog,
+            Tempers: dog.Tempers.filter(t => t !== el)
+        })
     }
 
     return (
@@ -54,32 +87,38 @@ export default function DogsCreate() {
                     <h3>Name</h3>
                     <label>Name:</label>
                     <input type="text" value= {dog.name} name= "name" onChange={(e) => handleChange(e)}/>
+                    {errors.name && <p>{errors.name}</p>}
                 </div>
                 <div>
                     <h3>Height</h3>
-                    <label>Height Min:</label>
-                    <input type="text" value= {dog.heightMin} name= "heightMin" onChange={(e) => handleChange(e)}/>
-                    <label>Height Max:</label>
-                    <input type="text" value= {dog.heightMax} name= "heightMax" onChange={(e) => handleChange(e)}/>
+                    <label>Min:</label>
+                    <input type="number" value= {dog.heightMin} name= "heightMin" onChange={(e) => handleChange(e)}/>
+                    {errors.heightMin && <p>{errors.heightMin}</p>}
+                    <label>Max:</label>
+                    <input type="number" value= {dog.heightMax} name= "heightMax" onChange={(e) => handleChange(e)}/>
+                    {errors.heightMax && <p>{errors.heightMax}</p>}
                 </div>
                 <div>
                     <h3>Weight</h3>
-                    <label>Peso Minimo:</label>
-                    <input type="text" value= {dog.weightMin} name= "weightMin" onChange={(e) => handleChange(e)}/>
-                    <label>Peso Maximo:</label>
-                    <input type="text" value= {dog.weightMax} name= "weightMax" onChange={(e) => handleChange(e)}/>
+                    <label>Min:</label>
+                    <input type="number" value= {dog.weightMin} name= "weightMin" onChange={(e) => handleChange(e)}/>
+                    {errors.weightMin && <p>{errors.weightMin}</p>}
+                    <label>Max</label>
+                    <input type="number" value= {dog.weightMax} name= "weightMax" onChange={(e) => handleChange(e)}/>
+                    {errors.weightMax && <p>{errors.weightMax}</p>}
                 </div>
                 <div>
                 <h3>Life Span</h3>
-                    <label>Life Span</label>
-                    <input type="text" value= {dog.life_spanMax} name= "life_spanMax" onChange={(e) => handleChange(e)}/>
-                    <label>Life Span Max:</label>
-                    <input type="text" value= {dog.life_spanMin} name= "life_spanMin" onChange={(e) => handleChange(e)}/>
+                    <label>Min:</label>
+                    <input type="number" value= {dog.life_spanMax} name= "life_spanMax" onChange={(e) => handleChange(e)}/>
+                    <label>Max:</label>
+                    <input type="number" value= {dog.life_spanMin} name= "life_spanMin" onChange={(e) => handleChange(e)}/>
                 </div>
                 <div>
                     <h3>Image</h3>
-                    <label>image:</label>
+                    <label>Image:</label>
                     <input type="text" value= {dog.image} name= "image" onChange={(e) => handleChange(e)}/>
+                    {errors.image && <p>{errors.image}</p>}
                 </div>
                 <select onChange={(e) => handleSelect(e)}>
                     <option value= "Select">Select Temperament</option>
@@ -89,11 +128,10 @@ export default function DogsCreate() {
                         ))
                     }
                 </select>
-                <ul><li> {dog.temperament.map(e => e + ", ")} </li></ul>
-                <button type="submit">Create Dog</button>
+                {dog.Tempers.length < 7 ? (<div><button type="submit">Create Dog</button></div>) : (<div><button type="submit" disabled = {true}>Create Dog </button></div>)}
             </form>
+                {dog.Tempers.map(el => <div key= {el+Math.random()}><p>{el}</p><button onClick={() => handleDelete(el)}>Delete</button></div>)}
+                
         </div>
     )
 }
-
-    

@@ -57,7 +57,7 @@ router.post("/dogs", async (req, res) => {
         life_spanMax, 
         image, 
         createInDB,
-        temperament, 
+        Tempers, 
      } = req.body;
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.name === name);
@@ -76,14 +76,12 @@ router.post("/dogs", async (req, res) => {
             createInDB,
         });
 
-        let newTemper = await Temper.findOrCreate({
-            where: { name: temperament },
-        });
-        let temperDB = await Temper.findAll({where:{name:temperament}});
-        newDog.addTemper(temperDB);
+        let associatedTemp = await Temper.findAll({
+            where: { name: Tempers},
+        })
+        newDog.addTemper(associatedTemp);
         res.send("Perro creado con exito");
     }
-
 });
 
 
