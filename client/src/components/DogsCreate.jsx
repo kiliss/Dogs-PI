@@ -15,6 +15,8 @@ export default function DogsCreate() {
         heightMax: "",
         weightMin: "",
         weightMax: "",
+        life_spanMax: "",
+        life_spanMin: "",
         image: "",
         temperament:[],
     });
@@ -22,33 +24,73 @@ export default function DogsCreate() {
         dispatch(getTemperament());
     } , [dispatch]);
 
+   function handleChange (e) {
+       setDog({
+           ...dog,
+           [e.target.name]: e.target.value
+       })
+   }
+   function handleSelect(e) {
+       const temperament = e.target.value;
+       setDog({
+           ...dog,
+           temperament: [...dog.temperament, temperament]
+        })
+    }
+    function handleSubmit (e) {
+        e.preventDefault();
+        dispatch(PostDog(dog));
+        history.push("/home");
+    }
+
     return (
         <div>
             <Link to="/home"><button>Volver</button></Link>
             <h1>
                 Crear perro
             </h1>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label>Nombre:</label>
-                    <input type="text" value= {dog.name} name= "name" />
+                    <h3>Name</h3>
+                    <label>Name:</label>
+                    <input type="text" value= {dog.name} name= "name" onChange={(e) => handleChange(e)}/>
                 </div>
                 <div>
-                    <label>Altura Minima:</label>
-                    <input type="text" value= {dog.heightMin} name= "heightMin"/>
-                    <label>Altura Maxima:</label>
-                    <input type="text" value= {dog.heightMax} name= "heightMax"/>
+                    <h3>Height</h3>
+                    <label>Height Min:</label>
+                    <input type="text" value= {dog.heightMin} name= "heightMin" onChange={(e) => handleChange(e)}/>
+                    <label>Height Max:</label>
+                    <input type="text" value= {dog.heightMax} name= "heightMax" onChange={(e) => handleChange(e)}/>
                 </div>
                 <div>
+                    <h3>Weight</h3>
                     <label>Peso Minimo:</label>
-                    <input type="text" value= {dog.weightMin} name= "weightMin"/>
+                    <input type="text" value= {dog.weightMin} name= "weightMin" onChange={(e) => handleChange(e)}/>
                     <label>Peso Maximo:</label>
-                    <input type="text" value= {dog.weightMax} name= "weightMax"/>
+                    <input type="text" value= {dog.weightMax} name= "weightMax" onChange={(e) => handleChange(e)}/>
                 </div>
                 <div>
-                    <label>imagen:</label>
-                    <input type="text" value= {dog.image} name= "image" />
+                <h3>Life Span</h3>
+                    <label>Life Span</label>
+                    <input type="text" value= {dog.life_spanMax} name= "life_spanMax" onChange={(e) => handleChange(e)}/>
+                    <label>Life Span Max:</label>
+                    <input type="text" value= {dog.life_spanMin} name= "life_spanMin" onChange={(e) => handleChange(e)}/>
                 </div>
+                <div>
+                    <h3>Image</h3>
+                    <label>image:</label>
+                    <input type="text" value= {dog.image} name= "image" onChange={(e) => handleChange(e)}/>
+                </div>
+                <select onChange={(e) => handleSelect(e)}>
+                    <option value= "Select">Select Temperament</option>
+                    {
+                        temperaments.map(t => (
+                            <option key={t.id} value={t.name}>{t.name}</option>
+                        ))
+                    }
+                </select>
+                <ul><li> {dog.temperament.map(e => e + ", ")} </li></ul>
+                <button type="submit">Create Dog</button>
             </form>
         </div>
     )

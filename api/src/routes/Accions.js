@@ -31,15 +31,25 @@ const getApiInfo = async () => {
     return apiInfo;
 }
 
+// const getDBInfo = async () => {
+//     return await Dog.findAll({
+//         includes:{
+//             model: Temper,
+//             attributes: ['name'],
+//             through: { attributes: [] }
+//         },
+//     });
+// }
 const getDBInfo = async () => {
     return await Dog.findAll({
-        includes:{
+        include: [{
             model: Temper,
             attributes: ['name'],
             through: { attributes: [] }
-        },
+        }],
     });
 }
+
 
 const getAllCharacters = async () => {
     const apiInfo = await getApiInfo();
@@ -64,6 +74,7 @@ const findTemperApi = async () => {
         }
         return a;
     },[])
+    // let tempFilt = [...new Set(tempDB)]
     return resultado;          // quita repetidos
 }
 

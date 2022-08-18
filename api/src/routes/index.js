@@ -1,5 +1,5 @@
 const { Router, application } = require('express');
-const { getAllCharacters, findTemperApi} = require('./Accions');
+const { getAllCharacters, findTemperApi, getApiInfo} = require('./Accions');
 const { Dog, Temper } = require('../db');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -33,28 +33,6 @@ router.get("/dogs/:id", async (req, res) => {
     }
 });
 
-router.post("/dogs", async (req, res) => {
-    const { name, heightMax, weightMin, life_span, temperament, image, heightMin, weightMax } = req.body;
-    let dogsTotal = await getAllCharacters();
-    let dogFind = dogsTotal.filter(dog => dog.name === name);
-    if(dogFind.length > 0){
-        res.status(400).send({ message: 'El perro ya existe' });
-    } else {
-        let newDog = await Dog.create({
-            name,
-            heightMin,
-            heightMax,
-            weightMin,
-            weightMax,
-            life_span,
-            image,
-        });
-        let temperDB = await Temper.findAll({ where: { name: temperament } });
-        newDog.addTemper(temperDB);
-        res.send("Perro creado con exito");
-    }
-});
-
 router.get("/temperaments", async (req, res) => {
     let temperament = await findTemperApi();
     temperament.forEach((t) => {
@@ -66,6 +44,49 @@ router.get("/temperaments", async (req, res) => {
     const totalTemp = await Temper.findAll(); // findAll trae todos los temperamentos de la bd
     res.json(totalTemp);
 });
+
+
+router.post("/dogs", async (req, res) => {
+    const { 
+        name, 
+        heightMin, 
+        heightMax,
+        weightMin, 
+        weightMax,
+        life_spanMin, 
+        life_spanMax, 
+        image, 
+        createInDB,
+        temperament, 
+     } = req.body;
+    let dogsTotal = await getAllCharacters();
+    let dogFind = dogsTotal.filter(dog => dog.name === name);
+    if(dogFind.length > 0){
+        res.status(400).send({ message: 'El perro ya existe' });
+    } else {
+        let newDog = await Dog.create({
+            name,
+            heightMin,
+            heightMax,
+            weightMin,
+            weightMax,
+            life_spanMin,
+            life_spanMax,
+            image,
+            createInDB,
+        });
+
+        let newTemper = await Temper.findOrCreate({
+            where: { name: temperament },
+        });
+        let temperDB = await Temper.findAll({where:{name:temperament}});
+        newDog.addTemper(temperDB);
+        res.send("Perro creado con exito");
+    }
+
+});
+
+
 
 
 module.exports = router;
