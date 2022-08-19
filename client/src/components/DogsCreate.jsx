@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import { PostDog, getTemperament } from "../actions";
+import Card from "./Card";
+
 
 function validate(dog){
     const errors = {};
@@ -14,14 +16,26 @@ function validate(dog){
     if(!dog.weightMax || !dog.weightMin){
         errors.weightMax = "Weight is required";
     }
-    if(dog.Tempers.length === 7){
-        errors.Tempers = "Tempers is full";
-    }
     if(!dog.heightMax || !dog.heightMin){
         errors.heightMax = "Height is required";
     }
-    if(!dog.Tempers.length){
-        errors.Tempers = "Tempers is required";
+    if(dog.weightMax < dog.weightMin){
+        errors.weightMax = "Weight max must be greater than weight min";
+    }
+    if(dog.heightMax < dog.heightMin){
+        errors.heightMax = "Height max must be greater than height min";
+    }
+    if(dog.heightMax === "0" || dog.heightMin === "0"){
+        errors.heightMax = "Height max and min must be greater than 0";
+    }
+    if(dog.weightMax === "0" || dog.weightMin === "0"){
+        errors.weightMax = "Weight max and min must be greater than 0";
+    }
+    if(dog.weightMin < 0 || dog.weightMax < 0){
+        errors.weightMax = "Weight max and min must be greater than 0";
+    }
+    if(dog.heightMin < 0 || dog.heightMax < 0){
+        errors.heightMax = "Height max and min must be greater than 0";
     }
     return errors;
 }
@@ -128,8 +142,23 @@ export default function DogsCreate() {
                         ))
                     }
                 </select>
-                {dog.Tempers.length < 7 ? (<div><button type="submit">Create Dog</button></div>) : (<div><button type="submit" disabled = {true}>Create Dog </button></div>)}
+                {console.log(Object.keys(errors).length)}
+                {Object.keys(errors).length === 0 ? (<div><button type="submit">Create Dog</button></div>) : (<div><button type="submit" disabled = {true}>Create Dog </button></div>)}
             </form>
+        <div>
+            <Card
+                name={dog.name}
+                heightMin={dog.heightMin}
+                heightMax={dog.heightMax}
+                weightMin={dog.weightMin}
+                weightMax={dog.weightMax}
+                life_spanMax={dog.life_spanMax}
+                life_spanMin={dog.life_spanMin}
+                image={dog.image ? dog.image : "https://icon-library.com/images/insert-image-icon/insert-image-icon-14.jpg"}
+                Tempers={dog.Tempers}
+            />
+        </div>
+            
                 {dog.Tempers.map(el => <div key= {el+Math.random()}><p>{el}</p><button onClick={() => handleDelete(el)}>Delete</button></div>)}
                 
         </div>

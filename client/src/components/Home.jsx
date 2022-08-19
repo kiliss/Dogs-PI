@@ -101,7 +101,7 @@ export default function Home() {
                         <Card key={dog.id}
                         name= {dog.name}
                         image= {dog.image}
-                        Tempers= {dog.Tempers[0].name ? dog.Tempers.map(el => el.name) : dog.Tempers}
+                        Tempers= {dog.Tempers[0].name ? dog.Tempers?.map(el => el.name) : dog.Tempers}
                         weightMin= {dog.weightMin}
                         weightMax= {dog.weightMax} />
                                 }

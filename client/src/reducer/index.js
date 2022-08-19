@@ -19,7 +19,7 @@ function rootReducer(state = initialState, action){
         }
         case "FILTER_DOG_BY_TEMPERAMENT":
             const filterDogs =  state.allDogs;
-            let filteredDogs = filterDogs?.filter(dog => dog.temperament?.includes(action.payload));
+            let filteredDogs = filterDogs?.filter(dog => dog.Tempers?.includes(action.payload));
             if(action.payload === "All") filteredDogs = filterDogs 
             //logica en el reducer antes del return para no romper
             return {

@@ -6,9 +6,13 @@ const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`);
     const apiInfo = apiUrl.data.map(dog => {
         let temperamentArray = [];
+        if (!dog.temperament) {
+            temperamentArray = ["Not specified"];
+        }
         if (dog.temperament) {//pregunto que exista el temperamento y lo devuelvo en un arreglo
             temperamentArray = dog.temperament.split(", ");
         }
+        
         let weightMin = dog.weight.metric.split(" - ")[0];
         let weightMax = dog.weight.metric.split(" - ")[1];
         let heightMin = dog.height.metric.split(" - ")[0];
@@ -60,6 +64,8 @@ const getAllCharacters = async () => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDBInfo();
     const infoTotal = apiInfo.concat(dbInfo);
+    // const infoTotal = [...apiInfo, ...dbInfo];
+    
     return infoTotal;
 }
 

@@ -63,6 +63,9 @@ router.post("/dogs", async (req, res) => {
     let dogFind = dogsTotal.filter(dog => dog.name === name);
     if(dogFind.length > 0){
         res.status(400).send({ message: 'El perro ya existe' });
+    }
+    if(Tempers.length === 0){
+        res.status(400).send({ message: 'El perro no tiene temperamentos' });
     } else {
         let newDog = await Dog.create({
             name,
