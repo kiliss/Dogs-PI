@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import styles from './paginado.module.css';
 
 export default function Paginado({dogsPerPage, allDogs, paginate}){
     const pageNumber = []
@@ -7,11 +8,11 @@ export default function Paginado({dogsPerPage, allDogs, paginate}){
         pageNumber.push(i)
     }
     return (
-        <nav>
-            <ul>
+        <nav className={styles.li_container}>
+            <ul className={styles.li_container}>
                     {pageNumber?.map(number => (
-                        <li key={number}> 
-                            <a onClick={() => paginate(number)}>{number}</a>
+                        <li key={number} onClick={() => paginate(number)} className={styles.li_container}> 
+                            <button className={styles.myButton2}>{number}</button>
                         </li>
                 ))}
             </ul>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {getDetail, removeDog} from "../actions";
-import {useParams, Link, useHistory} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 
 export default function Detail(props) {
     const dispatch = useDispatch();
@@ -11,7 +11,6 @@ export default function Detail(props) {
 
     const dog = useSelector(state => state.Details);
     const history = useHistory();
-    const { id } = useParams();
     const handleDelete = () => {
         dispatch(removeDog(dog[0].id));
         alert("Dog deleted succesfully");
@@ -36,6 +35,7 @@ export default function Detail(props) {
                 :
                     <div>
                         <h1>Cargando...</h1>
+                        <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/>
                     </div>
             }
             <Link to="/home"><button>Volver</button></Link>

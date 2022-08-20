@@ -27,6 +27,12 @@
 .App-link {
   color: #61dafb;
 }
+body{
+  background-image: url("./components/perro.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
 @keyframes App-logo-spin {
   from {

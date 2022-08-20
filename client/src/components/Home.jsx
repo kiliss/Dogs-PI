@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
+import style from './Home.module.css';
+
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export default function Home() {
     // Termina el Paginado
     const [order, setOrder] = useState(''); // setea el orden de los perros
     const [charge, setCharge] = useState(false)
+
 
 
     useEffect(() => {
@@ -57,18 +60,19 @@ export default function Home() {
         setCurrentPage(1);
         setOrder(e.target.value);
       }
-
-
     return (
-        <div>
+        <div className={style.contenedor}>
             <Link to="/Create">Crear Perro</Link>
+            <Link to="/">
+            <div className={`${style.logo}`}>Dogpedia</div>
+          </Link>
             <h1>Dogs</h1>
             
             <button onClick = {e => {handleClick(e)}}>
                 Volver a cargar personajes
             </button>
             <div>
-                <select defaultValue="ord" onChange={e => handleName(e)}>
+                <select defaultValue="ord" onChange={e => handleName(e)} className="custom-select">
                     <option value="ord" hidden>Ordenar</option>
                     <option value = "asc">Ascendente</option>
                     <option value = "desc">Descendente</option>
@@ -93,17 +97,19 @@ export default function Home() {
                     <option value= "weightMax">weight max</option>
                 </select>
                 <p> {order} </p>
+               
                 <Paginado
                     dogsPerPage={dogPerPage}
                     allDogs={allDogs.length}
                     paginate={paginate}
-                />
+                /> 
                 <SearchBar/>
                 <div>
-                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0931.gif" alt="loading" /> : 
+                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading" /> : 
                     currentDogs?.map(dog => {
                         return (
-                            <div key={dog.id}>
+                            <div key={dog.id} className= {style.cards}>
+                                
                                 {
                             <Link to={`/detail/${dog.id}`}>
                         <Card key={dog.id}
