@@ -66,3 +66,23 @@ export function handleSortWeight(payload){
         payload
     }
 }
+
+export function getDetail(id){
+    return async function(dispatch){
+        const response = await axios.get(`http://localhost:3001/dogs/${id}`)
+        return dispatch({
+            type: "GET_DETAIL",
+            payload: response.data
+        })
+    }
+}
+
+export function removeDog(id){
+    return async function(dispatch){
+        const response = await axios.delete(`http://localhost:3001/deleted/${id}`)
+        return dispatch({
+            type: "REMOVE_DOG",
+            payload: response.data
+        })
+    }
+}

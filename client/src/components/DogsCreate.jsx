@@ -77,7 +77,6 @@ export default function DogsCreate() {
            Tempers: [...dog.Tempers, temperament]
         })
     }
-    console.log(errors)
     function handleSubmit (e) {
         e.preventDefault();
         dispatch(PostDog(dog));

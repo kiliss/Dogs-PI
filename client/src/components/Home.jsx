@@ -20,8 +20,14 @@ export default function Home() {
     const paginate = (pageNumber) => setCurrentPage(pageNumber); // ayuda al renderizado para que cambie la pag
     // Termina el Paginado
     const [order, setOrder] = useState(''); // setea el orden de los perros
+    const [charge, setCharge] = useState(false)
+
 
     useEffect(() => {
+        setCharge(true);
+        setTimeout(() => {
+            setCharge(false);
+        }, 3000);
         dispatch(getTemperament());
         dispatch(getDogs());
     } , [ dispatch ]);
@@ -93,21 +99,26 @@ export default function Home() {
                     paginate={paginate}
                 />
                 <SearchBar/>
-                {
+                <div>
+                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0931.gif" alt="loading" /> : 
                     currentDogs?.map(dog => {
                         return (
                             <div key={dog.id}>
                                 {
+                            <Link to={`/detail/${dog.id}`}>
                         <Card key={dog.id}
                         name= {dog.name}
                         image= {dog.image}
-                        Tempers= {dog.Tempers[0].name ? dog.Tempers?.map(el => el.name) : dog.Tempers}
+                        Tempers= {dog.Tempers[0].name ? dog.Tempers?.map(el => el.name +(" ")) : dog.Tempers.map(el => el +(" "))}
                         weightMin= {dog.weightMin}
-                        weightMax= {dog.weightMax} />
+                        weightMax= {dog.weightMax}
+                        id= {dog.id} />
+                            </Link>
                                 }
                             </div>
                             )})
                 }
+                </div>
             </div>
         </div>
     )

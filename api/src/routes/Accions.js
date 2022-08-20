@@ -17,6 +17,9 @@ const getApiInfo = async () => {
         let weightMax = dog.weight.metric.split(" - ")[1];
         let heightMin = dog.height.metric.split(" - ")[0];
         let heightMax = dog.height.metric.split(" - ")[1];
+        let lifeSpanAll = dog.life_span.split(" - ");
+        let lifeSpanMin = lifeSpanAll[0];
+        let lifeSpanMax = lifeSpanAll[1];
         if(dog.name === "Smooth Fox Terrier"){
             weightMin = "6";
         }
@@ -25,7 +28,7 @@ const getApiInfo = async () => {
             weightMax = "30";
         }
         return {
-            id: dog.id,
+            id: String(dog.id),
             name: dog.name,
             image: dog.image.url,
             Tempers: temperamentArray,
@@ -33,21 +36,13 @@ const getApiInfo = async () => {
             weightMax: weightMax,
             heightMin: heightMin,
             heightMax: heightMax,
-            life_span: dog.life_span,
+            life_spanMin: lifeSpanMin,
+            life_spanMax: lifeSpanMax,
         }
     });
     return apiInfo;
 }
 
-// const getDBInfo = async () => {
-//     return await Dog.findAll({
-//         include: [{
-//             model: Temper,
-//             attributes: ['name'], //atributos que quiero traer del modelo Temperament, el id lo trae automatico
-//             through: { attributes: [] } //traer mediante los atributos del modelo
-//         }],
-//     });
-// }
 const getDBInfo = async () => {
     return await Dog.findAll({
         include: {

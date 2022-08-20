@@ -25,7 +25,8 @@ router.get('/dogs', async (req, res) => {
 router.get("/dogs/:id", async (req, res) => {
     const id = req.params.id;
     let dogsTotal = await getAllCharacters();
-    let dogFind = dogsTotal.filter(dog => dog.id === Number(id));
+    let dogFind = dogsTotal.filter(dog => dog.id === id);
+    console.log(id)
     if(dogFind.length > 0){
         res.status(200).send(dogFind);
     } else {
@@ -74,7 +75,7 @@ router.post("/dogs", async (req, res) => {
             weightMin,
             weightMax,
             life_spanMin,
-            life_spanMax,
+            life_spanMax : life_spanMax + " years",
             image,
             createInDB,
         });
@@ -86,7 +87,19 @@ router.post("/dogs", async (req, res) => {
         res.send("Perro creado con exito");
     }
 });
-
+router.delete('/deleted/:id', async (req, res) => {
+    const id = req.params.id;
+    let dogsTotal = await getAllCharacters();
+    let dogFind = dogsTotal.filter(dog => dog.id === id);
+    if(dogFind.length > 0){
+        await Dog.destroy({
+            where: { id: id },
+        });
+        res.status(200).send({ message: 'Perro eliminado con exito' });
+    } else {
+        res.status(404).send({ message: 'No se encontró el perro' });
+    }
+});
 
 
 
