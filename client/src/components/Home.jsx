@@ -5,7 +5,6 @@ import {getDogs, getTemperament, filterDogByTemperament, filterDogByCreated, fil
 import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
-import SearchBar from './SearchBar';
 import style from './Home.module.css';
 import NavBar from './NavBar';
 
@@ -22,6 +21,7 @@ export default function Home() {
     const currentDogs = allDogs.slice(indiceFirstDog, indiceLastDog); // divide el arreglo principal de 0 a 8
     const paginate = (pageNumber) => setCurrentPage(pageNumber); // ayuda al renderizado para que cambie la pag
     // Termina el Paginado
+    // eslint-disable-next-line no-unused-vars
     const [order, setOrder] = useState(''); // setea el orden de los perros
     const [charge, setCharge] = useState(false)
 
