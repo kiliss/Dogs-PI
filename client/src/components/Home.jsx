@@ -7,6 +7,7 @@ import Card from './Card';
 import Paginado from './Paginado';
 import style from './Home.module.css';
 import NavBar from './NavBar';
+import SearchBar from "./SearchBar";
 
 
 export default function Home() {
@@ -58,7 +59,7 @@ export default function Home() {
     return (
         <div className={style.contenedor}>
             <NavBar/>
-
+            <SearchBar/>
             <div>
                 <select defaultValue="ord" onChange={e => handleName(e)} className= {style.select} >
                     <option value="ord" hidden>Ordenar</option>
@@ -84,13 +85,12 @@ export default function Home() {
                     <option value= "weightMin">weight min</option>
                     <option value= "weightMax">weight max</option>
                 </select>
-                
-               
                 <Paginado
                     dogsPerPage={dogPerPage}
                     allDogs={allDogs.length}
                     paginate={paginate}
-                /> 
+                />
+                
                 <div>
                             {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> : 
                     currentDogs?.map(dog => {
