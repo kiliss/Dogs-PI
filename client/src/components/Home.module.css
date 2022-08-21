@@ -1,1 +1,25 @@
 
+.contenedor {
+overflow: hidden;
+}
+
+
+.select {
+  margin: 14px;
+  font-size:16px;
+  font-family:Times New Roman;
+  width:166px;
+  height:27px;
+  border-radius:10px;
+  color:rgba(252, 248, 248, 1);
+  border-color:rgba(12, 12, 15, 1);
+  background:rgba(6, 13, 24, 1);
+  cursor: pointer;
+}
+
+.select:hover {
+  background: rgba(155, 175, 214, 1)
+}
+
+            
+                

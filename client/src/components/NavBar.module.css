@@ -1,0 +1,39 @@
+.header {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+  }
+  /* Navigation */
+  .top_nav {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    background-color: rgba(6, 13, 24, 0.80);
+
+    width: 100%;
+
+  }
+
+.button{
+    background-color: rgba(6, 13, 24, 0.80);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.button:hover{
+    background-color: rgba(155, 175, 214, 1)
+}
+.tittle{
+    font-size: 30px;
+    font-family: Times New Roman;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+

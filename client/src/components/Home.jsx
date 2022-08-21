@@ -7,6 +7,7 @@ import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
 import style from './Home.module.css';
+import NavBar from './NavBar';
 
 
 export default function Home() {
@@ -34,12 +35,6 @@ export default function Home() {
         dispatch(getTemperament());
         dispatch(getDogs());
     } , [ dispatch ]);
-
-
-    function handleClick(e){
-        e.preventDefault()
-        dispatch(getDogs());
-    }
     function handleTemperament(e){
         e.preventDefault()
         dispatch(filterDogByTemperament(e.target.value));
@@ -62,53 +57,45 @@ export default function Home() {
       }
     return (
         <div className={style.contenedor}>
-            <Link to="/Create">Crear Perro</Link>
-            <Link to="/">
-            <div className={`${style.logo}`}>Dogpedia</div>
-          </Link>
-            <h1>Dogs</h1>
-            
-            <button onClick = {e => {handleClick(e)}}>
-                Volver a cargar personajes
-            </button>
+            <NavBar/>
+
             <div>
-                <select defaultValue="ord" onChange={e => handleName(e)} className="custom-select">
+                <select defaultValue="ord" onChange={e => handleName(e)} className= {style.select} >
                     <option value="ord" hidden>Ordenar</option>
                     <option value = "asc">Ascendente</option>
                     <option value = "desc">Descendente</option>
                 </select>
-                <select defaultValue="CREATED" onChange={e => handleCreated(e)}>
+                <select defaultValue="CREATED" onChange={e => handleCreated(e)} className= {style.select}>
                     <option value="CREATED" >Filter by create</option>
                     <option value="all">All</option>
                     <option value="api">API</option>
                     <option value="db">DB</option>
                 </select>
-                <select defaultValue = "All" onChange={e => handleTemperament(e)}>
+                <select defaultValue = "All" onChange={e => handleTemperament(e)} className= {style.select}>
                     <option value="All">Filter by temperament</option>
                     {
                         allTemperament?.map(temperament => (
-                            <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
+                            <option key={temperament.id} value={temperament.name} >{temperament.name}</option>
                         ))
                     }
                 </select>
-                <select defaultValue="weight" onChange={e => handleSortWeightt(e)}>
+                <select defaultValue="weight" onChange={e => handleSortWeightt(e)} className= {style.select}>
                     <option value="weight" hidden>Filter by weight</option>
                     <option value= "weightMin">weight min</option>
                     <option value= "weightMax">weight max</option>
                 </select>
-                <p> {order} </p>
+                
                
                 <Paginado
                     dogsPerPage={dogPerPage}
                     allDogs={allDogs.length}
                     paginate={paginate}
                 /> 
-                <SearchBar/>
                 <div>
-                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading" /> : 
+                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> : 
                     currentDogs?.map(dog => {
                         return (
-                            <div key={dog.id} className= {style.cards}>
+                            <div key={dog.id} className= {style.cardsContainer}>
                                 
                                 {
                             <Link to={`/detail/${dog.id}`}>

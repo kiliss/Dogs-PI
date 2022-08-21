@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import { PostDog, getTemperament } from "../actions";
 import Card from "./Card";
+import style from "./DogsCreate.module.css";
 
 
 function validate(dog){
@@ -91,49 +92,41 @@ export default function DogsCreate() {
 
     return (
         <div>
-            <Link to="/home"><button>Volver</button></Link>
-            <h1>
+            <Link to="/home"><button className= {style.myButton}>Volver</button></Link>
+            <h1 className= {style.tittle}>
                 Crear perro
             </h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <h3>Name</h3>
-                    <label>Name:</label>
-                    <input type="text" value= {dog.name} name= "name" onChange={(e) => handleChange(e)}/>
-                    {errors.name && <p>{errors.name}</p>}
+                    <h3 className= {style.tittle2}>Name</h3>
+                    <input type="text" value= {dog.name} name= "name" placeholder="Insert Name" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.name && <p className= {style.errors}>{errors.name}</p>}
                 </div>
                 <div>
-                    <h3>Height</h3>
-                    <label>Min:</label>
-                    <input type="number" value= {dog.heightMin} name= "heightMin" onChange={(e) => handleChange(e)}/>
-                    {errors.heightMin && <p>{errors.heightMin}</p>}
-                    <label>Max:</label>
-                    <input type="number" value= {dog.heightMax} name= "heightMax" onChange={(e) => handleChange(e)}/>
-                    {errors.heightMax && <p>{errors.heightMax}</p>}
+                    <h3 className= {style.tittle2}>Height</h3>
+                    <input type="number" value= {dog.heightMin} name= "heightMin" placeholder="Min" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.heightMin && <p className= {style.errors}>{errors.heightMin}</p>}
+                    <input type="number" value= {dog.heightMax} name= "heightMax" placeholder="Max" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.heightMax && <p className= {style.errors}>{errors.heightMax}</p>}
                 </div>
                 <div>
-                    <h3>Weight</h3>
-                    <label>Min:</label>
-                    <input type="number" value= {dog.weightMin} name= "weightMin" onChange={(e) => handleChange(e)}/>
-                    {errors.weightMin && <p>{errors.weightMin}</p>}
-                    <label>Max</label>
-                    <input type="number" value= {dog.weightMax} name= "weightMax" onChange={(e) => handleChange(e)}/>
-                    {errors.weightMax && <p>{errors.weightMax}</p>}
+                    <h3 className= {style.tittle2}>Weight</h3>
+                    <input type="number" value= {dog.weightMin} name= "weightMin" placeholder="Min" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.weightMin && <p className= {style.errors}>{errors.weightMin}</p>}
+                    <input type="number" value= {dog.weightMax} name= "weightMax" placeholder="Max" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.weightMax && <p className= {style.errors}>{errors.weightMax}</p>}
                 </div>
                 <div>
-                <h3>Life Span</h3>
-                    <label>Min:</label>
-                    <input type="number" value= {dog.life_spanMax} name= "life_spanMax" onChange={(e) => handleChange(e)}/>
-                    <label>Max:</label>
-                    <input type="number" value= {dog.life_spanMin} name= "life_spanMin" onChange={(e) => handleChange(e)}/>
+                <h3 className= {style.tittle2}>Life Span</h3>
+                    <input type="number" value= {dog.life_spanMax} name= "life_spanMax" placeholder="Min" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    <input type="number" value= {dog.life_spanMin} name= "life_spanMin" placeholder="Max" onChange={(e) => handleChange(e)} className= {style.input}/>
                 </div>
                 <div>
-                    <h3>Image</h3>
-                    <label>Image:</label>
-                    <input type="text" value= {dog.image} name= "image" onChange={(e) => handleChange(e)}/>
-                    {errors.image && <p>{errors.image}</p>}
+                    <h3 className= {style.tittle2}>Image</h3>
+                    <input type="text" value= {dog.image} name= "image" placeholder="Insert Image" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.image && <p className= {style.errors}>{errors.image}</p>}
                 </div>
-                <select onChange={(e) => handleSelect(e)}>
+                <select onChange={(e) => handleSelect(e)} className= {style.select}>
                     <option value= "Select">Select Temperament</option>
                     {
                         temperaments.map(t => (
@@ -142,9 +135,9 @@ export default function DogsCreate() {
                     }
                 </select>
                 {console.log(Object.keys(errors).length)}
-                {Object.keys(errors).length === 0 ? (<div><button type="submit">Create Dog</button></div>) : (<div><button type="submit" disabled = {true}>Create Dog </button></div>)}
+                {Object.keys(errors).length === 0 ? (<div><button type="submit" className= {style.buttonCreate}>Create Dog</button></div>) : (<div><button type="submit" disabled = {true} className= {style.buttonCreate}>Create Dog </button></div>)}
             </form>
-        <div>
+        <div className= {style.card}>
             <Card
                 name={dog.name}
                 heightMin={dog.heightMin}
