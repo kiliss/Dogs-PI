@@ -26,7 +26,6 @@ router.get("/dogs/:id", async (req, res) => {
     const id = req.params.id;
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.id === id);
-    console.log(id)
     if(dogFind.length > 0){
         res.status(200).send(dogFind);
     } else {
@@ -88,7 +87,7 @@ router.post("/dogs", async (req, res) => {
         res.send("Perro creado con exito");
     }
     } catch (error) {
-        console.log(error)
+        res.status(404).send({ message: 'Error, perro no creado' });
     }
 });
 router.delete('/deleted/:id', async (req, res) => {

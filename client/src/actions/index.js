@@ -29,7 +29,7 @@ export function getName(name){
                 payload: response.data
             })
         } catch (error) {
-            console.log(error)
+            alert("No se encontro el perro")
         }
     }
 }
