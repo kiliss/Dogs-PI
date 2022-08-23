@@ -5,7 +5,8 @@ import { PostDog, getTemperament } from "../actions";
 import Card from "./Card";
 import style from "../cssModules/DogsCreate.module.css";
 
-
+const regexUrl =
+/(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
 function validate(dog){
     const errors = {};
     if(!dog.name){
@@ -40,6 +41,18 @@ function validate(dog){
     }
     if(dog.heightMin < 0 || dog.heightMax < 0){
         errors.heightMax = "Height max and min must be greater than 0";
+    }
+    if(dog.life_spanMin < 0 || dog.life_spanMax < 0){
+        errors.lifespan = "Life span max and min must be greater than 0";
+    }
+    if(dog.life_spanMax < dog.life_spanMin){
+        errors.lifespan = "Life span max must be greater than life span min";
+    }
+    if(!dog.life_spanMax || !dog.life_spanMin){
+        errors.lifespan = "Life span is required";
+    }
+    if(dog.image && !regexUrl.test(dog.image)){
+        errors.image = "Image must be a valid url";
     }
     return errors;
 }
@@ -125,8 +138,9 @@ export default function DogsCreate() {
                 </div>
                 <div>
                 <h3 className= {style.tittle2}>Life Span</h3>
-                    <input type="number" value= {dog.life_spanMax} name= "life_spanMax" placeholder="Min" onChange={(e) => handleChange(e)} className= {style.input}/>
-                    <input type="number" value= {dog.life_spanMin} name= "life_spanMin" placeholder="Max" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    <input type="number" value= {dog.life_spanMin} name= "life_spanMin" placeholder="Min" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    <input type="number" value= {dog.life_spanMax} name= "life_spanMax" placeholder="Max" onChange={(e) => handleChange(e)} className= {style.input}/>
+                    {errors.lifespan && <p className= {style.errors}>{errors.lifespan}</p>}
                 </div>
                 <div>
                     <h3 className= {style.tittle2}>Image</h3>
