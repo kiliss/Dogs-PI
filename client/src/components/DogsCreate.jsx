@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 import { PostDog, getTemperament } from "../actions";
 import Card from "./Card";
-import style from "./DogsCreate.module.css";
+import style from "../cssModules/DogsCreate.module.css";
 
 
 function validate(dog){

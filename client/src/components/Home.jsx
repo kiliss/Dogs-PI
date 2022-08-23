@@ -5,7 +5,7 @@ import {getDogs, getTemperament, filterDogByTemperament, filterDogByCreated, fil
 import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
-import style from './Home.module.css';
+import style from '../cssModules/Home.module.css';
 import NavBar from './NavBar';
 import SearchBar from "./SearchBar";
 

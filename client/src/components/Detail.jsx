@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {getDetail, removeDog, clearDetail} from "../actions";
 import { Link, useHistory} from 'react-router-dom';
-import style from './Detail.module.css';
+import style from '../cssModules/Detail.module.css';
 
 export default function Detail(props) {
     const dispatch = useDispatch();

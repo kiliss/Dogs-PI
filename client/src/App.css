@@ -28,7 +28,7 @@
   color: #61dafb;
 }
 body{
-  background-image: url("./components/perro.jpg");
+  background-image: url("./components/Photos/perro.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

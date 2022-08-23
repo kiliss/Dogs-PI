@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import styles from './paginado.module.css';
+import styles from '../cssModules/paginado.module.css';
 
 export default function Paginado({dogsPerPage, allDogs, paginate}){
     const pageNumber = []
