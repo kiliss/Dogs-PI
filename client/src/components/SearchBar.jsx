@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getName } from "../actions"
 import style from './SearchBar.module.css';
 
-export default function SearchBar(){
+export default function SearchBar({currentPage}){
     const dispatch = useDispatch();
     const [name, setName] = useState('');
 
@@ -14,7 +14,11 @@ export default function SearchBar(){
         e.preventDefault();
         dispatch(getName(name));
         setName('');
+        setTimeout(() => {
+            currentPage(1);
+        }, 1000);
     }
+    
 
     return (
         <div className= {style.div}>

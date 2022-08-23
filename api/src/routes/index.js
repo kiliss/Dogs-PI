@@ -60,6 +60,7 @@ router.post("/dogs", async (req, res) => {
         createInDB,
         Tempers, 
      } = req.body;
+    try {
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.name === name);
     if(dogFind.length > 0){
@@ -85,6 +86,9 @@ router.post("/dogs", async (req, res) => {
         })
         newDog.addTemper(associatedTemp);
         res.send("Perro creado con exito");
+    }
+    } catch (error) {
+        console.log(error)
     }
 });
 router.delete('/deleted/:id', async (req, res) => {

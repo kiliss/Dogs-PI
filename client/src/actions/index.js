@@ -86,3 +86,9 @@ export function removeDog(id){
         })
     }
 }
+
+export function clearDetail(){
+    return {
+        type: "CLEAR_DETAIL"
+    }
+}

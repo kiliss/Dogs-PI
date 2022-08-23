@@ -3,7 +3,7 @@ const { YOUR_API_KEY } = process.env;
 const { Dog, Temper } = require('../db');
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`);
+    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${process.env.YOUR_API_KEY}`);
     const apiInfo = apiUrl.data.map(dog => {
         let temperamentArray = [];
         if (!dog.temperament) {
@@ -65,7 +65,7 @@ const getAllCharacters = async () => {
 }
 
 const findTemperApi = async () => {
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${YOUR_API_KEY}`)
+    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${process.env.YOUR_API_KEY}`)
     
     const tempDB = apiUrl.data
     .map((t) => t.temperament) //creo muchos arreglos con las palabras

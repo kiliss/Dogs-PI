@@ -11,6 +11,9 @@ function validate(dog){
     if(!dog.name){
         errors.name = "Name is required";
     }
+    if(dog.name.includes("1") || dog.name.includes("2") || dog.name.includes("3") || dog.name.includes("4") || dog.name.includes("5") || dog.name.includes("6") || dog.name.includes("7") || dog.name.includes("8") || dog.name.includes("9") || dog.name.includes("0")){
+        errors.name = "Name must not contain numbers";
+    }
     if(!dog.image){
         errors.image = "Image is required";
     }
@@ -81,6 +84,7 @@ export default function DogsCreate() {
     function handleSubmit (e) {
         e.preventDefault();
         dispatch(PostDog(dog));
+        alert("Dog create succesfully");
         history.push("/home");
     }
     function handleDelete(el) {
@@ -91,11 +95,14 @@ export default function DogsCreate() {
     }
 
     return (
-        <div>
-            <Link to="/home"><button className= {style.myButton}>Volver</button></Link>
-            <h1 className= {style.tittle}>
-                Crear perro
-            </h1>
+        <div className= {style.parent}>
+            <div className= {style.boton}>
+            <Link to="/home" className= {style.link}><button className= {style.myButton}>Volver</button></Link>
+            </div>
+            <div className= {style.form}>
+                <div className= {style.tittle}>
+                    <h1>Create Dog</h1>
+                </div>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     <h3 className= {style.tittle2}>Name</h3>
@@ -127,7 +134,7 @@ export default function DogsCreate() {
                     {errors.image && <p className= {style.errors}>{errors.image}</p>}
                 </div>
                 <select onChange={(e) => handleSelect(e)} className= {style.select}>
-                    <option value= "Select">Select Temperament</option>
+                    <option value= "Select" hidden>Select Temperament</option>
                     {
                         temperaments.map(t => (
                             <option key={t.id} value={t.name}>{t.name}</option>
@@ -135,8 +142,9 @@ export default function DogsCreate() {
                     }
                 </select>
                 {console.log(Object.keys(errors).length)}
-                {Object.keys(errors).length === 0 ? (<div><button type="submit" className= {style.buttonCreate}>Create Dog</button></div>) : (<div><button type="submit" disabled = {true} className= {style.buttonCreate}>Create Dog </button></div>)}
+                {Object.keys(errors).length === 0 ? (<div><button type="submit" className= {style.buttonCreate2}>Create Dog</button></div>) : (<div><button type="submit" disabled = {true} className= {style.buttonCreate}>Create Dog </button></div>)}
             </form>
+        </div>
         <div className= {style.card}>
             <Card
                 name={dog.name}
@@ -151,8 +159,9 @@ export default function DogsCreate() {
             />
         </div>
             
-                {dog.Tempers.map(el => <div key= {el+Math.random()}><p>{el}</p><button onClick={() => handleDelete(el)}>Delete</button></div>)}
-                
+            <div className= {style.tempers}>
+                {dog.Tempers.map(el => <div key= {el+Math.random()} className= {style.divtempers}><p>{el}</p><button onClick={() => handleDelete(el)} className= {style.buttonDelete}>Delete</button></div>)}
+            </div>
         </div>
     )
 }

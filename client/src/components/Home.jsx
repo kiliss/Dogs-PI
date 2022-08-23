@@ -32,7 +32,7 @@ export default function Home() {
         setCharge(true);
         setTimeout(() => {
             setCharge(false);
-        }, 3000);
+        }, 1500);
         dispatch(getTemperament());
         dispatch(getDogs());
     } , [ dispatch ]);
@@ -59,7 +59,7 @@ export default function Home() {
     return (
         <div className={style.contenedor}>
             <NavBar/>
-            <SearchBar/>
+            <SearchBar currentPage = {() => setCurrentPage(1)} />
             <div>
                 <select defaultValue="ord" onChange={e => handleName(e)} className= {style.select} >
                     <option value="ord" hidden>Ordenar</option>
@@ -67,7 +67,7 @@ export default function Home() {
                     <option value = "desc">Descendente</option>
                 </select>
                 <select defaultValue="CREATED" onChange={e => handleCreated(e)} className= {style.select}>
-                    <option value="CREATED" >Filter by create</option>
+                    <option value="CREATED" hidden >Filter by create</option>
                     <option value="all">All</option>
                     <option value="api">API</option>
                     <option value="db">DB</option>
@@ -82,8 +82,8 @@ export default function Home() {
                 </select>
                 <select defaultValue="weight" onChange={e => handleSortWeightt(e)} className= {style.select}>
                     <option value="weight" hidden>Filter by weight</option>
-                    <option value= "weightMin">weight min</option>
-                    <option value= "weightMax">weight max</option>
+                    <option value= "weightMin">Min</option>
+                    <option value= "weightMax">Max</option>
                 </select>
                 <Paginado
                     dogsPerPage={dogPerPage}
@@ -91,14 +91,14 @@ export default function Home() {
                     paginate={paginate}
                 />
                 
-                <div>
+                <div className= {style.cardsContainer}>
                             {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> : 
                     currentDogs?.map(dog => {
                         return (
-                            <div key={dog.id} className= {style.cardsContainer}>
+                            <div key={dog.id}>
                                 
                                 {
-                            <Link to={`/detail/${dog.id}`}>
+                            <Link to={`/detail/${dog.id}`} className= {style.link}>
                         <Card key={dog.id}
                         name= {dog.name}
                         image= {dog.image}
