@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function getDogs(){
     return async function(dispatch){
-        const response = await axios.get("http://localhost:3001/dogs")
+        const response = await axios.get("/dogs")
         return dispatch({
             type: "GET_DOGS",
             payload: response.data
@@ -12,7 +12,7 @@ export function getDogs(){
 
 export function getTemperament(){
     return async function(dispatch){
-        const response = await axios.get("http://localhost:3001/temperaments")
+        const response = await axios.get("/temperaments")
         return dispatch({
             type: "GET_TEMPERAMENT",
             payload: response.data
@@ -23,7 +23,7 @@ export function getTemperament(){
 export function getName(name){
     return async function(dispatch){
         try {
-            const response = await axios.get(`http://localhost:3001/dogs?name=${name}`)
+            const response = await axios.get(`/dogs?name=${name}`)
             return dispatch({
                 type: "GET_NAME",
                 payload: response.data
@@ -35,7 +35,7 @@ export function getName(name){
 }
 export function PostDog(payload){
     return async function(){
-            const response = await axios.post("http://localhost:3001/dogs", payload)
+            const response = await axios.post("/dogs", payload)
             return response
     }
 }
@@ -67,9 +67,9 @@ export function handleSortWeight(payload){
     }
 }
 
-export function getDetail(id){
+export function getDetail(id) {
     return async function(dispatch){
-        const response = await axios.get(`http://localhost:3001/dogs/${id}`)
+        const response = await axios.get(`/dogs/${id}`)
         return dispatch({
             type: "GET_DETAIL",
             payload: response.data
@@ -79,7 +79,7 @@ export function getDetail(id){
 
 export function removeDog(id){
     return async function(dispatch){
-        const response = await axios.delete(`http://localhost:3001/deleted/${id}`)
+        const response = await axios.delete(`/deleted/${id}`)
         return dispatch({
             type: "REMOVE_DOG",
             payload: response.data

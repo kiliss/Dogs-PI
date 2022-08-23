@@ -5,6 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals'; 
 import {Provider} from "react-redux"; // Provider es un componente que nos permite acceder a la store
 import {store} from "./store"; // store es la store que creamos en el archivo store/index.js
+import dotenv from "dotenv";
+import axios from 'axios';
+dotenv.config();
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
     <Provider store={store}>
