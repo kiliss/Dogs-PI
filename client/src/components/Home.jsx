@@ -62,9 +62,9 @@ export default function Home() {
             <SearchBar currentPage = {() => setCurrentPage(1)} />
             <div>
                 <select defaultValue="ord" onChange={e => handleName(e)} className= {style.select} >
-                    <option value="ord" hidden>Ordenar</option>
-                    <option value = "asc">Ascendente</option>
-                    <option value = "desc">Descendente</option>
+                    <option value="ord" hidden>Ord</option>
+                    <option value = "asc">A-Z</option>
+                    <option value = "desc">Z-A</option>
                 </select>
                 <select defaultValue="CREATED" onChange={e => handleCreated(e)} className= {style.select}>
                     <option value="CREATED" hidden >Filter by create</option>

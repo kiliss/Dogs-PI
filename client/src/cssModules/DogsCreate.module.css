@@ -97,7 +97,6 @@
   border-radius:15px;
   border:1px solid #1f2f47;
   display:flex;
-  cursor:pointer;
   color:#ffffff;
   font-family:Courier New;
   font-size:20px;
@@ -158,6 +157,7 @@
   font-weight:bold;
   padding:9px 32px;
   text-shadow:0px 7px 4px #263666;
+  cursor:pointer;
 }
 .divtempers{
   height: 40px;
