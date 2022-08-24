@@ -69,11 +69,15 @@ export function handleSortWeight(payload){
 
 export function getDetail(id) {
     return async function(dispatch){
+        try{
         const response = await axios.get(`/dogs/${id}`)
         return dispatch({
             type: "GET_DETAIL",
             payload: response.data
         })
+        } catch (error) {
+            alert("No se Creo el perro")
+        }
     }
 }
 

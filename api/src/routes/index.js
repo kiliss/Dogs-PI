@@ -63,10 +63,10 @@ router.post("/dogs", async (req, res) => {
     let dogsTotal = await getAllCharacters();
     let dogFind = dogsTotal.filter(dog => dog.name === name);
     if(dogFind.length > 0){
-        res.status(400).send({ message: 'El perro ya existe' });
+        throw new Error("El perro ya existe");
     }
     if(Tempers.length === 0){
-        res.status(400).send({ message: 'El perro no tiene temperamentos' });
+        throw new Error("Debe seleccionar al menos un temperamento");
     } else {
         let newDog = await Dog.create({
             name,
@@ -84,10 +84,10 @@ router.post("/dogs", async (req, res) => {
             where: { name: Tempers},
         })
         newDog.addTemper(associatedTemp);
-        res.send("Perro creado con exito");
+        res.status(201).send("Perro creado con exito");
     }
     } catch (error) {
-        res.status(404).send({ message: 'Error, perro no creado' });
+        res.status(400).send({ message: 'Error, perro no creado' });
     }
 });
 router.delete('/deleted/:id', async (req, res) => {
