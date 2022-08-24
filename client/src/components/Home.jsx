@@ -32,7 +32,7 @@ export default function Home() {
         setCharge(true);
         setTimeout(() => {
             setCharge(false);
-        }, 1500);
+        }, 3500);
         dispatch(getTemperament());
         dispatch(getDogs());
     } , [ dispatch ]);
@@ -92,8 +92,9 @@ export default function Home() {
                 />
                 
                 <div className= {style.cardsContainer}>
-                            {charge ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> : 
-                    currentDogs?.map(dog => {
+                            {charge && currentDogs.length === 0 ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> :
+                        
+                        currentDogs?.map(dog => {
                         return (
                             <div key={dog.id}>
                                 
@@ -110,7 +111,7 @@ export default function Home() {
                                 }
                             </div>
                             )})
-                }
+                } {currentDogs.length === 0 && !charge ? <h1>No dogs found</h1> : null}
                 </div>
             </div>
         </div>

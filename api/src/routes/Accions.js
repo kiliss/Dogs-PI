@@ -3,6 +3,7 @@ const { YOUR_API_KEY } = process.env;
 const { Dog, Temper } = require('../db');
 
 const getApiInfo = async () => {
+    try {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${process.env.YOUR_API_KEY}`);
     const apiInfo = apiUrl.data.map(dog => {
         let temperamentArray = [];
@@ -41,6 +42,9 @@ const getApiInfo = async () => {
         }
     });
     return apiInfo;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const getDBInfo = async () => {
@@ -65,6 +69,7 @@ const getAllCharacters = async () => {
 }
 
 const findTemperApi = async () => {
+    try{
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${process.env.YOUR_API_KEY}`)
     
     const tempDB = apiUrl.data
@@ -82,6 +87,9 @@ const findTemperApi = async () => {
     },[])
     // let tempFilt = [...new Set(tempDB)]
     return resultado;          // quita repetidos
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = { getAllCharacters, getDBInfo, getApiInfo, findTemperApi };
