@@ -2,7 +2,8 @@ const initialState = {
     Dogs: [],
     Temperament: [],
     allDogs: [],
-    Details: []
+    Details: [],
+    DogsCreated : []
 }
 
 function rootReducer(state = initialState, action){
@@ -11,7 +12,8 @@ function rootReducer(state = initialState, action){
             return {
                 ...state,
                 Dogs: action.payload,
-                allDogs: action.payload
+                allDogs: action.payload,
+                DogsCreated: action.payload
         }
         case "GET_TEMPERAMENT":
             return {
@@ -19,8 +21,8 @@ function rootReducer(state = initialState, action){
                 Temperament: action.payload
         }
         case "FILTER_DOG_BY_TEMPERAMENT":
-            const filterDogs =  state.allDogs;
-            let filteredDogs = filterDogs?.filter(dog => dog.Tempers?.includes(action.payload));
+            let filterDogs =  state.DogsCreated
+            let filteredDogs = filterDogs?.filter(dog => dog.Tempers[0].name?.includes(action.payload) || dog.Tempers.includes(action.payload));
             if(action.payload === "All") filteredDogs = filterDogs 
             //logica en el reducer antes del return para no romper
             return {
@@ -30,10 +32,11 @@ function rootReducer(state = initialState, action){
         case "FILTER_DOG_BY_CREATED":
             const filterDogsByCreated =  state.allDogs;
             let filter = action.payload === "db" ? filterDogsByCreated.filter(d => d.createdInDb) : filterDogsByCreated.filter(d => !d.createdInDb)
-            if(action.payload === "All") filter = filterDogsByCreated
+            if(action.payload === "all") filter = filterDogsByCreated
             return {
                 ...state,
-                Dogs: filter
+                Dogs: filter,
+                DogsCreated: filter
         }
         case "FILTER_DOG_BY_NAME":
             let sortedArr = action.payload === "asc" ?
@@ -52,7 +55,7 @@ function rootReducer(state = initialState, action){
                 Dogs: sortedArr
         }
         case "FILTER_DOG_BY_WEIGHT":
-            const filterDogsByWeight =  state.allDogs;
+            const filterDogsByWeight =  state.Dogs;
             let filterWeight = action.payload === "weightMin" ? filterDogsByWeight.sort((a, b) => {
                 if(parseInt(a.weightMin) > parseInt(b.weightMin)) return 1
                 if(parseInt(a.weightMin) < parseInt(b.weightMin)) return -1

@@ -39,10 +39,12 @@ export default function Home() {
     function handleTemperament(e){
         e.preventDefault()
         dispatch(filterDogByTemperament(e.target.value));
+        setCurrentPage(1);
     }
     function handleCreated(e){
         e.preventDefault()
         dispatch(filterDogByCreated(e.target.value));
+        setCurrentPage(1);
     }
     function handleName(e){
         e.preventDefault()
