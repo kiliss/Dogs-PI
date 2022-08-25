@@ -156,7 +156,7 @@ export default function DogsCreate() {
                         ))
                     }
                 </select>
-                {console.log(Object.keys(errors).length)}
+                {/* {console.log(Object.keys(errors).length)} */}
                 {Object.keys(errors).length === 0 ? (<div><button type="submit" className= {style.buttonCreate2}>Create Dog</button></div>) : (<div><button type="submit" disabled = {true} className= {style.buttonCreate}>Create Dog </button></div>)}
             </form>
         </div>

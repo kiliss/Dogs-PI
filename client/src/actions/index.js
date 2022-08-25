@@ -35,8 +35,12 @@ export function getName(name){
 }
 export function PostDog(payload){
     return async function(){
+        try{
             const response = await axios.post("/dogs", payload)
             return response
+        }catch(error){
+            alert("No se pudo crear el perro")
+        }
     }
 }
 
