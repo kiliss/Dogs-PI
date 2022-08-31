@@ -12,11 +12,14 @@ export default function SearchBar({currentPage}){
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(name.length === 0) {
+        alert("Ingresa el nombre para buscar")
+        }
         dispatch(getName(name));
         setName('');
         setTimeout(() => {
             currentPage(1);
-        }, 1000);
+        }, 700);
     }
     
 

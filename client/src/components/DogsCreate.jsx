@@ -13,6 +13,9 @@ function validate(dog){
     if(!dog.name){
         errors.name = "Name is required";
     }
+    if(dog.name.charAt(0) === " "){
+        errors.name = "ingresa un nombre valido"
+    }
     if(dog.name.includes("1") || dog.name.includes("2") || dog.name.includes("3") || dog.name.includes("4") || dog.name.includes("5") || dog.name.includes("6") || dog.name.includes("7") || dog.name.includes("8") || dog.name.includes("9") || dog.name.includes("0")){
         errors.name = "Name must not contain numbers";
     }
@@ -90,10 +93,12 @@ export default function DogsCreate() {
    }
    function handleSelect(e) {
        const temperament = e.target.value;
-       setDog({
+       if(!dog.Tempers.includes(temperament)){
+               setDog({
            ...dog,
            Tempers: [...dog.Tempers, temperament]
         })
+       }
     }
     function handleSubmit (e) {
         e.preventDefault();

@@ -36,7 +36,6 @@ router.get("/dogs/:id", async (req, res) => {
 router.get("/temperaments", async (req, res) => {
     let temperament = await findTemperApi();
     temperament.forEach((t) => {
-        // se fija si el temperamento esta, si esta no hace nada, si no lo crea
         Temper.findOrCreate({ // se fija si el temperamento esta, si esta no hace nada, si no lo crea
             where: { name: t }, // se fija si el temperamento esta en la bd
         });
