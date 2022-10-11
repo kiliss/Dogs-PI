@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Temper', {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING,            //el id se genera automaticamente por Sequelize
     },
   },
   {
