@@ -58,6 +58,8 @@ export default function Home() {
         setCurrentPage(1);
         setOrder(e.target.value);
       }
+      console.log(currentDogs)
+      console.log(allTemperament)
     return (
         <div className={style.contenedor}>
             <NavBar/>
@@ -75,13 +77,13 @@ export default function Home() {
                     <option value="db">DB</option>
                 </select>
                 <select defaultValue = "All" onChange={e => handleTemperament(e)} className= {style.select}>
-                    <option value="All">Filter by temperament</option>
-                    {
-  Array.isArray(allTemperament) && allTemperament.map(temperament => (
-    <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
-  ))
-}
-                </select>
+    <option value="All">Filter by temperament</option>
+    {
+        Array.isArray(allTemperament) && allTemperament.map(temperament => (
+            <option key={temperament.id} value={temperament.name} >{temperament.name}</option>
+        ))
+    }
+</select>
                 <select defaultValue="weight" onChange={e => handleSortWeightt(e)} className= {style.select}>
                     <option value="weight" hidden>Filter by weight</option>
                     <option value= "weightMin">Min</option>
@@ -96,7 +98,7 @@ export default function Home() {
                 <div className= {style.cardsContainer}>
                             {charge && currentDogs.length === 0 ? <img src="https://www.gifsanimados.org/data/media/202/perro-imagen-animada-0182.gif" alt="loading"/> :
                         
-                        currentDogs?.map(dog => {
+                        Array.isArray(currentDogs) && currentDogs?.map(dog => {
                         return (
                             <div key={dog.id}>
                                 
