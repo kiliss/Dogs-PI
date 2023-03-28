@@ -77,10 +77,10 @@ export default function Home() {
                 <select defaultValue = "All" onChange={e => handleTemperament(e)} className= {style.select}>
                     <option value="All">Filter by temperament</option>
                     {
-                        allTemperament?.map(temperament => (
-                            <option key={temperament.id} value={temperament.name} >{temperament.name}</option>
-                        ))
-                    }
+  Array.isArray(allTemperament) && allTemperament.map(temperament => (
+    <option key={temperament.id} value={temperament.name}>{temperament.name}</option>
+  ))
+}
                 </select>
                 <select defaultValue="weight" onChange={e => handleSortWeightt(e)} className= {style.select}>
                     <option value="weight" hidden>Filter by weight</option>
